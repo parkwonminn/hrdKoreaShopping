@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,13 +23,13 @@ nav>ul {
 
 section {
 	height: 600px;
-	text-align:center;
-	margin-top:100px;
-}
-section td{
-	border : 1px solid;
+	text-align: center;
+	margin-top: 100px;
 }
 
+section td {
+	border: 1px solid;
+}
 </style>
 
 	<header>
@@ -40,6 +43,21 @@ section td{
 			<li><a href="index.jsp">홈으로</a></li>
 		</ul>
 	</nav>
+
+
+	<%@page import="Dao.*,java.util.*"%>
+	<%
+	MemberDao dao = new MemberDao();
+	int maxcustno = dao.maxcustno();
+	
+	Calendar cal = Calendar.getInstance();
+	int year= cal.get(Calendar.YEAR);
+	int month=cal.get(Calendar.MONTH)+1;
+	int day = cal.get(Calendar.DATE);
+	System.out.println(year+""+month+""+day);
+	String date = year+""+month+""+day;
+	%>
+
 	<section>
 		<h2>홈쇼핑 회원 등록</h2>
 
@@ -47,7 +65,7 @@ section td{
 			<table align=center>
 				<tr>
 					<td>회원번호(자동발생)</td>
-					<td><input type="text" name="custno" /></td>
+					<td><input type="text" name="custno" value="<%=maxcustno + 1%>" /></td>
 				</tr>
 				<tr>
 					<td>회원성명</td>
@@ -63,7 +81,7 @@ section td{
 				</tr>
 				<tr>
 					<td>가입일자</td>
-					<td><input type="text" name="joindate" /></td>
+					<td><input type="text" name="joindate" value="<%=date%>" /></td>
 				</tr>
 				<tr>
 					<td>고객등급[A:VIP,B:일반,C:직원])</td>

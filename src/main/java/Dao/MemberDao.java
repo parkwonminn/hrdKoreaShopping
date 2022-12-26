@@ -20,63 +20,89 @@ public class MemberDao {
 			e.printStackTrace();
 		}
 	}
-	
-	//INSERT
+
+	// INSERT
 	public boolean Insert(MemberDto dto) {
-		 boolean isok=false;
-		 try {
-			 pstmt=con.prepareStatement("insert into member_tbl_02 values(?,?,?,?,?,?,?)");
-			 pstmt.setInt(1, Integer.parseInt(dto.getCustno()));
-			 pstmt.setString(2, dto.getCustname());
-			 pstmt.setString(3, dto.getPhone());
-			 pstmt.setString(4, dto.getAddress());
-			 pstmt.setString(5, dto.getJoindate());
-			 pstmt.setString(6, dto.getGrade());
-			 pstmt.setString(7, dto.getCity());
-			 int result= pstmt.executeUpdate();
-			 if(result>0)
-				 isok=true;
-			 
-		 }catch(Exception e) {
-			 e.printStackTrace();
-		 }finally {
-			 try { pstmt.close();  }catch(Exception e) {}
-			 try { con.close();  }catch(Exception e) {}
-		 }
-		 return isok;
-		
+		boolean isok = false;
+		try {
+			pstmt = con.prepareStatement("insert into member_tbl_02 values(?,?,?,?,?,?,?)");
+			pstmt.setInt(1, Integer.parseInt(dto.getCustno()));
+			pstmt.setString(2, dto.getCustname());
+			pstmt.setString(3, dto.getPhone());
+			pstmt.setString(4, dto.getAddress());
+			pstmt.setString(5, dto.getJoindate());
+			pstmt.setString(6, dto.getGrade());
+			pstmt.setString(7, dto.getCity());
+			int result = pstmt.executeUpdate();
+			if (result > 0)
+				isok = true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+			} catch (Exception e) {
+			}
+			try {
+				con.close();
+			} catch (Exception e) {
+			}
+		}
+		return isok;
+
 	}
-	//UPDATE
+
+	public int maxcustno() {
+		int result=0;
+		try {
+			pstmt = con.prepareStatement("select max(custno) from member_tbl_02");
+			rs = pstmt.executeQuery();
+			if(rs !=null)
+			{
+				rs.next();
+				result = rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+		}
+		return result;
+	}
+
+	
+	// UPDATE
 	public void Update(MemberDto dto) {
-		 try {
-			 
-			 
-		 }catch(Exception e) {
-			 e.printStackTrace();
-		 }finally {
-			 
-		 }
+		try {
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+		}
 	}
-	//SELECT
+
+	// SELECT
 	public void Select(MemberDto dto) {
-		 try {
-			 
-			 
-		 }catch(Exception e) {
-			 e.printStackTrace();
-		 }finally {
-			 
-		 }
+		try {
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+		}
 	}
-	//SELECTALL
+
+	// SELECTALL
 	public void SelectAll() {
-		 try {
-			 
-			 
-		 }catch(Exception e) {
-			 e.printStackTrace();
-		 }finally {
-			 
-		 }
+		try {
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+		}
 	}
 }
