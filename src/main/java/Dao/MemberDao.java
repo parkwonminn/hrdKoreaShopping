@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import Dto.MemberDto;
 
@@ -40,14 +42,8 @@ public class MemberDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				pstmt.close();
-			} catch (Exception e) {
-			}
-			try {
-				con.close();
-			} catch (Exception e) {
-			}
+			try {pstmt.close();} catch (Exception e) {}
+			try {con.close();} catch (Exception e) {}
 		}
 		return isok;
 
@@ -67,8 +63,11 @@ public class MemberDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-
+			try {rs.close();} catch (Exception e) {}
+			try {pstmt.close();} catch (Exception e) {}
+			try {con.close();} catch (Exception e) {}
 		}
+		
 		return result;
 	}
 
@@ -96,13 +95,36 @@ public class MemberDao {
 	}
 
 	// SELECTALL
-	public void SelectAll() {
+	public List<MemberDto> SelectAll() {
+		List<MemberDto> list = new ArrayList();
+		MemberDto dto=null;
 		try {
-
+			pstmt = con.prepareStatement("select * from member_tbl_02");
+			rs=pstmt.executeQuery();
+			if(rs!=null)
+			{
+				while(rs.next())
+				{
+					dto = new MemberDto();
+					dto.setCustno(rs.getInt("custno")+"");
+					dto.setCustname(rs.getString("custname"));
+					dto.setPhone(rs.getString("phone"));
+					dto.setAddress(rs.getString("address"));
+					dto.setJoindate(rs.getString("joindate"));
+					dto.setGrade(rs.getString("grade"));
+					dto.setCity(rs.getString("city"));
+					list.add(dto);
+				}
+				
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-
+			try {rs.close();} catch (Exception e) {}
+			try {pstmt.close();} catch (Exception e) {}
+			try {con.close();} catch (Exception e) {}
 		}
+		return list;
 	}
 }
