@@ -61,7 +61,7 @@ section td {
 	<section>
 		<h2>홈쇼핑 회원 등록</h2>
 
-		<form action="proc/joinproc.jsp" method="post">
+		<form action="proc/joinproc.jsp" method="post" onsubmit="return false" name=joinfrm>
 			<table align=center>
 				<tr>
 					<td>회원번호(자동발생)</td>
@@ -93,7 +93,7 @@ section td {
 				</tr>
 				<tr>
 					<td colspan=2>
-						<button>등록</button>
+						<button onclick="isValid()">등록</button>
 						<button>조회</button>
 					</td>
 				</tr>
@@ -102,6 +102,44 @@ section td {
 
 	</section>
 	<footer> HRDKOREA Copyright@2016 ALL - </footer>
+
+	
+	<script>
+		function isValid(){
+			const frm = document.joinfrm; //form연결
+			
+			if(frm.custname.value.trim()==""){
+				alert("회원 성명이 입력되지 않았습니다!");
+				frm.custname.focus();
+				return false;
+			}
+			if(frm.phone.value.trim()==""){
+				alert("회원 전화번호가 입력되지 않았습니다!");
+				frm.phone.focus();
+				return false;
+			}
+			if(frm.address.value.trim()==""){
+				alert("회원 주소가 입력되지 않았습니다!");
+				frm.address.focus();
+				return false;
+			}
+			if(frm.grade.value.trim()==""){
+				alert("고객 등급이 입력되지 않았습니다!");
+				frm.grade.focus();
+				return false;
+			}
+			if(frm.city.value.trim()==""){
+				alert("도서 코드가 입력되지 않았습니다!");
+				frm.city.focus();
+				return false;
+			}
+			
+			//문제 없을경우 
+			//frm.action="proc/joinproc.jsp";
+			frm.submit();
+		}
+	</script>
+
 
 
 </body>
