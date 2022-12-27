@@ -59,7 +59,7 @@ section td {
 	<section>
 		<h2>홈쇼핑 회원 정보 수정</h2>
 
-		<form action="" method="post" >
+		<form action="proc/updateproc.jsp" method="post" >
 			<table align=center>
 				<tr>
 					<td>회원번호</td>

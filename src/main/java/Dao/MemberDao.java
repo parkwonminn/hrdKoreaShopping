@@ -73,14 +73,32 @@ public class MemberDao {
 
 	
 	// UPDATE
-	public void Update(MemberDto dto) {
+	public boolean Update(MemberDto dto) {
+		
+		boolean isok=false;
+		
 		try {
-
+			pstmt=con.prepareStatement("update member_tbl_02 set custname=?,phone=?,address=?,joindate=?,grade=?,city=? where custno=?");
+			pstmt.setString(1, dto.getCustname());
+			pstmt.setString(2, dto.getPhone());
+			pstmt.setString(3, dto.getAddress());
+			pstmt.setString(4, dto.getJoindate());
+			pstmt.setString(5, dto.getGrade());
+			pstmt.setString(6, dto.getCity());
+			pstmt.setInt(7,  Integer.parseInt(dto.getCustno()));
+			int result= pstmt.executeUpdate();
+			if(result>0)
+				isok=true;
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-
+			try {pstmt.close();} catch (Exception e) {}
+			try {con.close();} catch (Exception e) {}
 		}
+		
+		return isok;
+		
 	}
 
 	// SELECT

@@ -93,7 +93,7 @@ section td {
 				</tr>
 				<tr>
 					<td colspan=2>
-						<button onclick="isValid()">등록</button>
+						<button onclick="isValid()">수정</button>
 						<button>조회</button>
 					</td>
 				</tr>
