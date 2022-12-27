@@ -45,10 +45,14 @@ section td {
 	</nav>
 
 
-	<%@page import="Dao.*,java.util.*"%>
+	<%@page import="Dto.*,Dao.*,java.util.*,java.text.*"%>
 	<%
-	String custno = request.getParameter("custno");
+	int custno = Integer.parseInt(request.getParameter("custno"));
 	MemberDao dao = new MemberDao();
+	MemberDto dto =  dao.Select(custno);
+	
+	SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+	Date date = fmt.parse(dto.getJoindate());
 	
 	%>
 
@@ -59,31 +63,31 @@ section td {
 			<table align=center>
 				<tr>
 					<td>회원번호</td>
-					<td><input type="text" name="custno"  /></td>
+					<td><input type="text" name="custno"  value="<%=dto.getCustno() %>" /></td>
 				</tr>
 				<tr>
 					<td>회원성명</td>
-					<td><input type="text" name="custname" /></td>
+					<td><input type="text" name="custname" value="<%=dto.getCustname() %>" /></td>
 				</tr>
 				<tr>
 					<td>회원전화</td>
-					<td><input type="text" name="phone" /></td>
+					<td><input type="text" name="phone" value="<%=dto.getPhone() %>" /></td>
 				</tr>
 				<tr>
 					<td>회원주소</td>
-					<td><input type="text" name="address" /></td>
+					<td><input type="text" name="address" value="<%=dto.getAddress() %>" /></td>
 				</tr>
 				<tr>
 					<td>가입일자</td>
-					<td><input type="text" name="joindate"  /></td>
+					<td><input type="text" name="joindate" value="<%=fmt.format(date) %>" /></td>
 				</tr>
 				<tr>
 					<td>고객등급[A:VIP,B:일반,C:직원])</td>
-					<td><input type="text" name="grade" /></td>
+					<td><input type="text" name="grade" value="<%=dto.getGrade() %>" /></td>
 				</tr>
 				<tr>
 					<td>거주도시</td>
-					<td><input type="text" name="city" /></td>
+					<td><input type="text" name="city" value="<%=dto.getCity() %>" /></td>
 				</tr>
 				<tr>
 					<td colspan=2>
