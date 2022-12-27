@@ -84,14 +84,36 @@ public class MemberDao {
 	}
 
 	// SELECT
-	public void Select(MemberDto dto) {
+	public MemberDto Select(int custno) {
+		MemberDto dto=null;
+		
 		try {
-
+			pstmt=con.prepareStatement("select * from member_tbl_02 where custno=?");
+			pstmt.setInt(1,custno);
+			rs = pstmt.executeQuery();
+			if(rs!=null)
+			{
+				rs.next();
+				dto=new MemberDto();
+				dto.setCustno(rs.getInt("custno")+"");
+				dto.setCustname(rs.getString("custname"));
+				dto.setPhone(rs.getString("phone"));
+				dto.setJoindate(rs.getString("joindate"));
+				dto.setAddress(rs.getString("address"));
+				dto.setGrade(rs.getString("grade"));
+				dto.setCity(rs.getString("city"));
+			}
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-
+			try {rs.close();} catch (Exception e) {}
+			try {pstmt.close();} catch (Exception e) {}
+			try {con.close();} catch (Exception e) {}
 		}
+		return dto;
+		
 	}
 
 	// SELECTALL

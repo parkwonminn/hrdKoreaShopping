@@ -70,7 +70,7 @@ section td,th {
 			{
 			%>
 			<tr>
-				<td><%=list.get(i).getCustno() %></td>
+				<td><a href="memberupdate.jsp?custno=<%=list.get(i).getCustno() %>"><%=list.get(i).getCustno() %></a> </td>
 				<td><%=list.get(i).getCustname() %></td>
 				<td><%=list.get(i).getPhone() %></td>
 				<td><%=list.get(i).getAddress() %></td>
